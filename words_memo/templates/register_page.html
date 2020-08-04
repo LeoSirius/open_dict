@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/accounts/login/" method="post">
+<h1>register page</h1>
+<!--<a href="/accounts/register/">register</a>-->
+<form action="/accounts/register/" method="post">
     {% csrf_token %}
     <input name="email" type="email" required>
     <input name="password" type="password" required>

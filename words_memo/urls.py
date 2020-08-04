@@ -16,14 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from words_memo.views import home_view, profile_view, login_view, logout_view
+from words_memo.views import home_view, profile_view, login_view, logout_view, \
+    register_view, register_confirm_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view),
     path('profile/', profile_view),
 
-    path('accounts/login/', login_view, name='login'),
-    path('accounts/logout/', logout_view, name='logout'),
+    path('accounts/login/', login_view, name='accounts-login'),
+    path('accounts/logout/', logout_view, name='accounts-logout'),
+    path('accounts/register/', register_view, name='accounts-register'),
+    path('accounts/register/confirm/<uuid:token>', register_confirm_view, name='accounts-register-confirm-view'),
+
 
 ]
