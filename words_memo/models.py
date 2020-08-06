@@ -13,9 +13,9 @@ class UserWord(models.Model):
     """
     one user <-> many words
     """
-    vid = models.UUIDField(db_index=True)           # onwer user's vid
+    user_vid = models.UUIDField(db_index=True)      # onwer user's vid
     circle_stage = models.IntegerField()
-    add_or_remember_time = models.IntegerField()    # timestamp
+    last_op_time = models.IntegerField()            # timestamp, last op: add, remember, forget
     word_id = models.IntegerField()                 # foreign key
 
 
@@ -23,7 +23,8 @@ class Circle(models.Model):
     """
     one user <-> one circle
     """
-    stage1 = models.IntegerField()     # second
+    user_vid = models.UUIDField(db_index=True)  # onwer user's vid
+    stage1 = models.IntegerField()              # second
     stage2 = models.IntegerField()
     stage3 = models.IntegerField()
     stage4 = models.IntegerField()

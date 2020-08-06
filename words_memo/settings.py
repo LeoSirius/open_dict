@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -120,19 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# 发送邮件设置
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# SMTP地址
-EMAIL_HOST = 'smtp.qq.com'
-# SMTP端口
-EMAIL_PORT = 25
-# 自己的邮箱
-EMAIL_HOST_USER = 'is.li.xiaoyu@qq.com'
-# 自己的邮箱授权码，非密码
-EMAIL_HOST_PASSWORD = 'qdjfbhsfjfnkbfae'
-EMAIL_SUBJECT_PREFIX = '[words memo]'
-
-EMIAL_USE_TLS = False
-EMAIL_FROM ='is.li.xiaoyu@qq.com'
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static/'),
+)

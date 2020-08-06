@@ -25,44 +25,50 @@ def register_view(request):
             return HttpResponse('用户名存在')
 
         vid = uuid.uuid4()
-        payload = {
-            'vid': vid.hex,
-            'email': email,
-            'elp': password,
-        }
-        token = jwt.encode(payload, key=settings.SECRET_KEY, algorithm='HS256')
-        print('token = {}'.format(token))
-        activate_url = 'http://39.106.229.224/accounts/register/' + token.decode('utf-8') + '/'
-        print('activate_url = {}'.format(activate_url))
-        # todo send http://hostname/accounts/register/token/ to email
-        send_emails([email])
 
-        # TODO tips check email
+        # TODO: email verify, mobile phone login
+        # payload = {
+        #     'vid': vid.hex,
+        #     'email': email,
+        #     'elp': password,
+        # }
+        # token = jwt.encode(payload, key=settings.SECRET_KEY, algorithm='HS256')
+        # print('token = {}'.format(token))
+        # activate_url = 'http://39.106.229.224/accounts/register/' + token.decode('utf-8') + '/'
 
-        return HttpResponse('验证链接已发送，请检查邮件')
+        user = User.objects.create(username=vid, email=email)
+        user.set_password(password)
+        user.save()
+        try:
+            login(request, user)
+        except Exception as e:
+            print('login error E = {}'.format(e))
+        return redirect('/')
+
 
     return TemplateResponse(request, 'register_page.html')
 
-def register_confirm_view(request, token):
-    try:
-        payload = jwt.decode(token, key=settings.SECRET_KEY, algorithm='HS256')
-    except jwt.PyJWTError:
-        return HttpResponse('token invalid.')
-
-    vid = payload.get('vid')
-    email = payload.get('email')
-    password = payload.get('elp')
-    if (not vid) or (not email) or (not password):
-        return HttpResponse('token invalid.')
-    # create user but not activate
-    user = User.objects.create(username=vid, email=email)
-    user.set_password(password)
-    user.save()
-    try:
-        login(request, user)
-    except Exception as e:
-        print('login error E = {}'.format(e))
-    return redirect('/')
+# TODO: email verify
+# def register_confirm_view(request, token):
+#     try:
+#         payload = jwt.decode(token, key=settings.SECRET_KEY, algorithm='HS256')
+#     except jwt.PyJWTError:
+#         return HttpResponse('token invalid.')
+#
+#     vid = payload.get('vid')
+#     email = payload.get('email')
+#     password = payload.get('elp')
+#     if (not vid) or (not email) or (not password):
+#         return HttpResponse('token invalid.')
+#     # create user but not activate
+#     user = User.objects.create(username=vid, email=email)
+#     user.set_password(password)
+#     user.save()
+#     try:
+#         login(request, user)
+#     except Exception as e:
+#         print('login error E = {}'.format(e))
+#     return redirect('/')
 
 @login_required
 def profile_view(request):
