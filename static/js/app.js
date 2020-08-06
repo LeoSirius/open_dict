@@ -1,3 +1,5 @@
+
+
 function handleSearch(value) {
     console.log(value);
     API.searchWords(value).then(res => {
