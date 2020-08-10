@@ -32,12 +32,19 @@ def word_scraper(word):
 
     if not segs:
         print('no mean')
+
+    word_desc_results = []
     for seg in segs:
-        # print(seg.prettify())
         quality = get_quality(seg)
         desc_list = get_desc_list(seg)
-        print('qualiry = {}'.format(quality))
-        print('desc_list = {}'.format(desc_list))
+        word_desc_result = {
+            'quality': quality,
+            'desc_list': desc_list,
+        }
+        word_desc_results.append(word_desc_result)
+    print('word_desc_results = {}'.format(word_desc_results))
+    return word_desc_results
+
     # print('li_pos ')
 
     # qualities = get_quality(li_pos)
@@ -47,7 +54,7 @@ def word_scraper(word):
 
 if __name__ == '__main__':
     try:
-        word_scraper('gooseberry-stone')
+        word_scraper('hare')
     except Exception as e:
         print('E = {}'.format(e))
 
