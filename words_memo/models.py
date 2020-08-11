@@ -1,12 +1,23 @@
+import json
+
 from django.db import models
 
 class Word(models.Model):
     """
     global unique word
     """
+    word = models.CharField(max_length=256, db_index=True)
     language = models.CharField(max_length=2, db_index=True)
     meaning = models.TextField()   # json, from web
 
+
+    def to_dict(self):
+        return {
+            'word_id': self.pk,
+            'word': self.word,
+            'language': self.language,
+            'meaning': json.loads(self.meaning),
+        }
 
 
 class UserWord(models.Model):

@@ -21,7 +21,11 @@
         <li><a href="{% url 'accounts-login'%}?next={{request.path}}">Login</a></li>
     {% endif %}
 
-    <div id="search-result"></div>
+    <div id="search-result">
+        <div id="word-meaning"></div>
+        <button id="word-add-button" style="display: none">add to my memo</button>
+    </div>
+
     </ul>
 
 

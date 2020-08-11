@@ -19,6 +19,7 @@ from django.urls import path
 from words_memo.views import home_view, profile_view, login_view, logout_view, \
     register_view
 from words_memo.api.searh_words import SearchWordsView
+from words_memo.api.user_words import UserWordsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,8 @@ urlpatterns = [
     path('accounts/register/', register_view, name='accounts-register'),
 
     path('api/search-words/', SearchWordsView.as_view(), name='api-search-words'),
+
+    path('api/user-words/', UserWordsView.as_view(), name='api-user-words'),
 
 
 ]
