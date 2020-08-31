@@ -1,7 +1,12 @@
 from fastapi import FastAPI
+from word_scraper import word_scraper
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.get("/{word}/")
+def read_root(word: str):
+    res = {
+        'name': word,
+        'meanings': word_scraper(word)
+    }
+    return res
